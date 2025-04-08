@@ -108,7 +108,7 @@ function App() {
         return () => clearInterval(intervalId);
       }
     }
-  }, [autoRefresh, enabled]);
+  }, [autoRefresh]);
 
   return (
     <SectionBox>
