@@ -101,13 +101,22 @@ function App() {
   useEffect(() => {
     if (enabled) {
       fetchCat();
-      if (autoRefresh) {
-        const intervalId = setInterval(() => {
-          fetchCat();
-        }, 5000);
-        return () => clearInterval(intervalId);
-      }
     }
+  }, []);
+
+  useEffect(() => {
+    let intervalId: ReturnType<typeof setInterval> | undefined;
+
+    if (autoRefresh && enabled) {
+      fetchCat();
+      intervalId = setInterval(() => {
+        fetchCat();
+      }, 5000);
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
   }, [autoRefresh]);
 
   return (
